@@ -1,0 +1,290 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4B3254D2764C2F13373A8A07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2402ADDF86B2D72F9EFF817 /* AppDelegate.swift */; };
+		A86CB5F1D90B1A1F8D410D1D /* NativePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A964FFE76DB03F6C79FA409 /* NativePlayer.swift */; };
+		037C02DF7F2A700196547185 /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB17EC3C6DDA28754213DEC /* SchemeHandler.swift */; };
+		9CAED0291F0583CD36269966 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9155F8640BB9C82C824D680F /* WebViewController.swift */; };
+		A3CE876236AC257EA80D968D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C60EC283D2697F9F2F1222A /* Assets.xcassets */; };
+		C549E30BC23E6E646F98917A /* web in Resources */ = {isa = PBXBuildFile; fileRef = 8E443D933BA6A563CB366AF6 /* web */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		996AD237BC284D463E664FFE /* FreeX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreeX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2402ADDF86B2D72F9EFF817 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6A964FFE76DB03F6C79FA409 /* NativePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePlayer.swift; sourceTree = "<group>"; };
+		2EB17EC3C6DDA28754213DEC /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
+		9155F8640BB9C82C824D680F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		9C60EC283D2697F9F2F1222A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E068AFE4DD0112ECF4F53EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E443D933BA6A563CB366AF6 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = web; path = ../web; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4FCBC29864E7C7752B7E193F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B731CEFC6751AAE0EC69B98 = {
+			isa = PBXGroup;
+			children = (
+				20F4BD606C0F6D1645AE4919 /* FreeX */,
+				8E443D933BA6A563CB366AF6 /* web */,
+				86024CAD1E83101D97359D73 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		20F4BD606C0F6D1645AE4919 /* FreeX */ = {
+			isa = PBXGroup;
+			children = (
+				F2402ADDF86B2D72F9EFF817 /* AppDelegate.swift */,
+				6A964FFE76DB03F6C79FA409 /* NativePlayer.swift */,
+				2EB17EC3C6DDA28754213DEC /* SchemeHandler.swift */,
+				9155F8640BB9C82C824D680F /* WebViewController.swift */,
+				9C60EC283D2697F9F2F1222A /* Assets.xcassets */,
+				6E068AFE4DD0112ECF4F53EF /* Info.plist */,
+			);
+			path = FreeX;
+			sourceTree = "<group>";
+		};
+		86024CAD1E83101D97359D73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				996AD237BC284D463E664FFE /* FreeX.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* FreeX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 449CDAD090025738145986EB /* Build configuration list for PBXNativeTarget "FreeX" */;
+			buildPhases = (
+				C197A1D4E0DE673615AC32CB /* Sources */,
+				4FCBC29864E7C7752B7E193F /* Frameworks */,
+				8A6A452CEE30B0908A47D41D /* Resources */,
+				B962B35226E1881AB37D0C5B /* Version from web/version.json */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FreeX;
+			productName = FreeX;
+			productReference = 996AD237BC284D463E664FFE /* FreeX.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					42AEFBAE01D2DFD981F7DA7D = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = CE36D6306C17890370B358E3 /* Build configuration list for PBXProject "FreeX" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				de,
+				Base,
+			);
+			mainGroup = 2B731CEFC6751AAE0EC69B98;
+			productRefGroup = 86024CAD1E83101D97359D73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* FreeX */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A6A452CEE30B0908A47D41D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3CE876236AC257EA80D968D /* Assets.xcassets in Resources */,
+				C549E30BC23E6E646F98917A /* web in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B962B35226E1881AB37D0C5B /* Version from web/version.json */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../web/version.json",
+			);
+			name = "Version from web/version.json";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# The app has the version of the interface (web/version.json), like the Android app.\nV=$(sed -n 's/.*\"version\": *\"\\([^\"]*\\)\".*/\\1/p' \"$SRCROOT/../web/version.json\")\nIFS=. read -r MA MI PA <<EOV\n$V\nEOV\nN=$((MA * 10000 + MI * 100 + PA))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $V\" -c \"Set :CFBundleVersion $N\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C197A1D4E0DE673615AC32CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B3254D2764C2F13373A8A07 /* AppDelegate.swift in Sources */,
+				A86CB5F1D90B1A1F8D410D1D /* NativePlayer.swift in Sources */,
+				037C02DF7F2A700196547185 /* SchemeHandler.swift in Sources */,
+				9CAED0291F0583CD36269966 /* WebViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B69466B536F8CE43B6356EC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		64E1E1CBE1CA8E88EF3A838A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		626726E60BD1215F36719A30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FreeX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.mirranet.freex.mobile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7D707A26E7F7B6FF52C489C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FreeX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.mirranet.freex.mobile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE36D6306C17890370B358E3 /* Build configuration list for PBXProject "FreeX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B69466B536F8CE43B6356EC1 /* Debug */,
+				64E1E1CBE1CA8E88EF3A838A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		449CDAD090025738145986EB /* Build configuration list for PBXNativeTarget "FreeX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626726E60BD1215F36719A30 /* Debug */,
+				E7D707A26E7F7B6FF52C489C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

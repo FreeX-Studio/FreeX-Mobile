@@ -2576,3 +2576,90 @@ html.video-mode #stack {
         margin-top: -60px;
     }
 }
+
+/*
+ * WebViews without clamp() and min() (Chromium before 79, Android devices without updates) use the
+ * vw/vh value written before each of them; these limits keep that value from growing without end on
+ * tablets. Each breakpoint is where the vw/vh value reaches the bound of the clamp() it stands for.
+ */
+@supports not (width: clamp(1px, 1vw, 2px)) {
+    .up-next {
+        max-width: calc(100% - 36px);
+    }
+
+    @media (max-width: 365px) {
+        .card { width: 106px; }
+    }
+
+    @media (max-width: 349px) {
+        .hero-text h1 { font-size: 28px; }
+    }
+
+    @media (max-width: 343px) {
+        .d-text h1 { font-size: 22px; }
+    }
+
+    @media (max-width: 333px) {
+        .cards.land .card, .card.land { width: 220px; }
+    }
+
+    @media (max-width: 280px) {
+        .osd-center { gap: 28px; }
+    }
+
+    @media (min-width: 500px) {
+        .cards.land .card, .card.land { width: 330px; }
+        .d-text h1 { font-size: 32px; }
+        .ep-thumb { padding-top: 112.5px; }
+    }
+
+    @media (min-width: 538px) {
+        .card { width: 156px; }
+    }
+
+    @media (min-width: 550px) {
+        .hero-text h1 { font-size: 44px; }
+    }
+
+    @media (min-width: 710px) {
+        .details .d-backdrop { height: 440px; }
+    }
+
+    @media (min-width: 720px) {
+        .osd-center { gap: 72px; }
+    }
+
+    @media (min-height: 861px) {
+        .hero { height: 620px; }
+    }
+
+    @media (min-height: 878px) {
+        .sheet { max-height: 720px; }
+    }
+
+    @media (max-height: 361px) {
+        .p-subs { font-size: 16px; }
+        .p-subs.style-s { font-size: 13px; }
+        .p-subs.style-l { font-size: 19px; }
+        .p-subs.style-xl { font-size: 22px; }
+    }
+
+    @media (min-height: 652px) {
+        .p-subs { font-size: 30px; }
+    }
+
+    @media (min-height: 667px) {
+        .p-subs.style-s { font-size: 24px; }
+    }
+
+    @media (min-height: 680px) {
+        .p-subs.style-l { font-size: 38px; }
+        .p-subs.style-xl { font-size: 46px; }
+    }
+
+    /* the landscape layout of phones sets its own heights */
+    @media (orientation: landscape) and (max-height: 500px) {
+        .hero { height: 86vh; }
+        .details .d-backdrop { height: 52vh; }
+    }
+}

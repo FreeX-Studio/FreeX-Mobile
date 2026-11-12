@@ -1,5 +1,10 @@
 # Changelog
 
+## FreeX Mobile 1.0.2
+
+- Older Android WebViews (without `clamp()` and `min()`): posters, titles, the backdrop and subtitles no longer grow
+  with the width of the screen, which made everything look zoomed in on tablets
+
 ## FreeX Mobile 1.0.1
 
 - Android: the interface also works with older Android System WebViews (as on Android 8 devices without

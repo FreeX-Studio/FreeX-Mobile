@@ -31,11 +31,13 @@
 // A release keystore for the APK comes from the environment (FREEX_KEYSTORE,
 // FREEX_KEYSTORE_PASSWORD, FREEX_KEY_ALIAS, FREEX_KEY_PASSWORD); without it the debug key signs.
 //
-// iOS: Xcode 14 or newer on the Mac, set up once as the user the agent runs as:
+// iOS: Xcode 14 or newer on the Mac (on Intel Macs Xcode 26 is the last one), set up once:
 //
-//   sudo xcode-select -s /Applications/Xcode.app
+//   sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 //   sudo xcodebuild -license accept && xcodebuild -runFirstLaunch
 //   xcodebuild -downloadPlatform iOS      # Xcode 15 and newer, if the iOS platform is missing
+//
+// Without xcode-select the stage takes the newest /Applications/Xcode*.app (or FREEX_XCODE).
 //
 // Without more, the stage builds the app unsigned (FreeX-iOS-<version>-unsigned.ipa, for signing
 // with Sideloadly or AltStore). With FREEX_IOS_TEAM (the team ID of an Apple developer account that
@@ -120,6 +122,19 @@ pipeline {
                     steps {
                         sh '''
                             set -e
+                            # Xcode itself, not the Command Line Tools: FREEX_XCODE, the one chosen with
+                            # xcode-select, otherwise the newest Xcode*.app in /Applications.
+                            if [ -n "${FREEX_XCODE:-}" ]; then
+                                export DEVELOPER_DIR="$FREEX_XCODE/Contents/Developer"
+                            elif ! xcode-select -p 2>/dev/null | grep -q '\\.app/'; then
+                                X=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | tail -1)
+                                if [ -z "$X" ]; then
+                                    echo "No Xcode found on this Mac: install Xcode 26 (see the Jenkinsfile) into /Applications." >&2
+                                    exit 1
+                                fi
+                                export DEVELOPER_DIR="$X/Contents/Developer"
+                            fi
+                            echo "DEVELOPER_DIR=${DEVELOPER_DIR:-$(xcode-select -p)}"
                             xcodebuild -version
                             VERSION=$(sed -n 's/.*"version": *"\\([^"]*\\)".*/\\1/p' web/version.json)
                             DD="$WORKSPACE/build/ios"

@@ -142,7 +142,7 @@ pipeline {
                             mkdir -p build dist
 
                             # unsigned: for Sideloadly / AltStore
-                            xcodebuild -project ios/FreeX.xcodeproj -scheme FreeX -configuration Release -sdk iphoneos \\
+                            xcodebuild -project ios/FreeX.xcodeproj -scheme FreeX -configuration Release -destination "generic/platform=iOS" \\
                                 -derivedDataPath "$DD" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \\
                                 build | tee "$WORKSPACE/build/xcodebuild.log" | grep -E 'error:|warning: .*/ios/FreeX/|BUILD' || true
                             grep -q 'BUILD SUCCEEDED' "$WORKSPACE/build/xcodebuild.log" || { grep -B2 -A4 'error:' "$WORKSPACE/build/xcodebuild.log" | head -60; exit 1; }
@@ -157,7 +157,7 @@ pipeline {
                                 /usr/libexec/PlistBuddy -c 'Add :method string development' -c "Add :teamID string $FREEX_IOS_TEAM" \\
                                     -c 'Add :signingStyle string automatic' build/ExportOptions.plist
                                 xcodebuild -project ios/FreeX.xcodeproj -scheme FreeX -configuration Release \\
-                                    -archivePath build/FreeX.xcarchive -allowProvisioningUpdates DEVELOPMENT_TEAM="$FREEX_IOS_TEAM" archive
+                                    -destination "generic/platform=iOS" -archivePath build/FreeX.xcarchive -allowProvisioningUpdates DEVELOPMENT_TEAM="$FREEX_IOS_TEAM" archive
                                 xcodebuild -exportArchive -archivePath build/FreeX.xcarchive -exportPath build/export \\
                                     -exportOptionsPlist build/ExportOptions.plist -allowProvisioningUpdates
                                 cp build/export/*.ipa "dist/FreeX-iOS-$VERSION.ipa"

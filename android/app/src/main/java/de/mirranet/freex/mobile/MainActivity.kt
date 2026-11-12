@@ -14,6 +14,7 @@ package de.mirranet.freex.mobile
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.PictureInPictureParams
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -39,6 +40,7 @@ import android.webkit.WebViewClient
 import android.window.OnBackInvokedDispatcher
 import android.widget.FrameLayout
 import androidx.webkit.WebViewAssetLoader
+import androidx.webkit.WebViewCompat
 import org.json.JSONObject
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -120,6 +122,34 @@ class MainActivity : Activity() {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT) { back() }
         }
         webView.loadUrl("https://$ASSET_HOST/assets/web/index.html")
+        checkWebView()
+    }
+
+    /**
+     * Devices without updates keep the WebView they came with (Android 8: Chrome 58 to 61); the
+     * interface needs a newer one. Offers the update in the Play Store.
+     */
+    private fun checkWebView() {
+        val pkg = try {
+            WebViewCompat.getCurrentWebViewPackage(this)
+        } catch (e: Exception) {
+            null
+        } ?: return
+        val major = pkg.versionName?.substringBefore('.')?.toIntOrNull() ?: return
+        if (major >= MIN_WEBVIEW) return
+        AlertDialog.Builder(this)
+            .setTitle(R.string.webview_old_title)
+            .setMessage(getString(R.string.webview_old_text, pkg.versionName))
+            .setPositiveButton(R.string.webview_update) { _, _ ->
+                val market = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${pkg.packageName}"))
+                try {
+                    startActivity(market)
+                } catch (e: ActivityNotFoundException) {
+                    openUrl("https://play.google.com/store/apps/details?id=${pkg.packageName}")
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     // ------------------------------------------------------------------ system bars and insets
@@ -326,5 +356,8 @@ class MainActivity : Activity() {
 
     companion object {
         const val ASSET_HOST = "appassets.androidplatform.net"
+
+        /** Oldest WebView (Chromium major version) the interface is made for. */
+        const val MIN_WEBVIEW = 84
     }
 }

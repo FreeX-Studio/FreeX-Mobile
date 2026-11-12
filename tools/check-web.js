@@ -22,7 +22,8 @@ const sources = {};
 for (const f of scripts) {
     sources[f] = fs.readFileSync(path.join(web, "js", f), "utf8");
     try {
-        acorn.parse(sources[f], {ecmaVersion: 2018});
+        // boot-check.js must run everywhere, to report an engine that is too old
+        acorn.parse(sources[f], {ecmaVersion: f === "boot-check.js" ? 5 : 2018});
         console.log("ok", f);
     } catch (e) {
         fail(`web/js/${f}: ${e.message}`);

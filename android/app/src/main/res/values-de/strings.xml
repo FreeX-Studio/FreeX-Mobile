@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="webview_old_title">Bitte Android System WebView aktualisieren</string>
+    <string name="webview_old_text">FreeX zeigt seine Oberfläche mit der Android System WebView. Die installierte Version (%1$s) ist dafür zu alt. Aktualisiere „Android System WebView“ im Play Store und starte FreeX neu.</string>
+    <string name="webview_update">Aktualisieren</string>
+</resources>

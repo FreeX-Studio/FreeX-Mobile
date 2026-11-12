@@ -1,5 +1,14 @@
 # Changelog
 
+## FreeX Mobile 1.0.1
+
+- Android: the interface also works with older Android System WebViews (as on Android 8 devices without
+  updates), which showed only a dark screen: no CSS `inset`, `clamp()` and `min()` without fallbacks, `env()`
+  only where the WebView knows it
+- Android: a WebView older than Chromium 84 is reported at the start, with a button to update it in the Play Store
+- If the interface cannot start at all, a message with the WebView version and the error is shown instead of an
+  empty screen
+
 ## FreeX Mobile 1.0.0
 
 First version of the apps for FreeX Media Server on **iOS / iPadOS** (15+) and **Android** (7.0+), with one shared

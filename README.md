@@ -101,7 +101,7 @@ network cannot be reached.
 | Android | `cd android && ./gradlew assembleRelease` (JDK 17, Android SDK 35) → `android/app/build/outputs/apk/release/app-release.apk`. Signed with the debug key unless `FREEX_KEYSTORE`, `FREEX_KEYSTORE_PASSWORD`, `FREEX_KEY_ALIAS` and `FREEX_KEY_PASSWORD` name a release keystore. |
 | iOS | Xcode 16 or newer: open `ios/FreeX.xcodeproj` and build the scheme *FreeX*, or `xcodebuild -project ios/FreeX.xcodeproj -scheme FreeX -sdk iphoneos CODE_SIGNING_ALLOWED=NO build`. The `web/` folder is copied into the app. |
 | Check | `npm install --no-save acorn@8 && node tools/check-web.js`: syntax (ES2018), version and German texts. |
-| CI | GitHub Actions (`.github/workflows/build.yml`) checks the interface and builds both apps on every push; a tag `v*` publishes a release with the APK and the unsigned IPA. A `Jenkinsfile` builds the APK on a Jenkins agent with the Android SDK. |
+| CI | GitHub Actions (`.github/workflows/build.yml`) checks the interface and builds both apps on every push; a tag `v*` publishes a release with the APK and the unsigned IPA. The `Jenkinsfile` builds the APK on a Linux agent and, side by side, the iOS app on a Mac agent (label `Spark` by default, see the comments at its top; with `FREEX_IOS_TEAM` also a signed development IPA). |
 
 The interface can be developed in any browser: serve `web/` (e.g. `python3 -m http.server -d web 8088`), open it
 with the phone view of the developer tools and connect to a server. It then plays with `<video>` and hls.js.

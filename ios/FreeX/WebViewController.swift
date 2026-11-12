@@ -78,7 +78,8 @@ final class WebViewController: UIViewController, WKScriptMessageHandler, WKNavig
         webView.allowsLinkPreview = false
         webView.navigationDelegate = self
         webView.uiDelegate = self
-        #if DEBUG
+        #if DEBUG && compiler(>=5.8)
+        // Safari's Web Inspector (the property is there from the iOS 16.4 SDK, Xcode 14.3, on)
         if #available(iOS 16.4, *) { webView.isInspectable = true }
         #endif
 

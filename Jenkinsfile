@@ -14,7 +14,8 @@
 //
 // The build agent needs JDK 17 or 21 (Gradle 8.14 does not run on Java 25; FREEX_JDK names the JDK
 // if it is not under /usr/lib/jvm), the Android SDK (ANDROID_HOME, platform 35 and build tools; the
-// Gradle wrapper fetches everything else) and Node.js for the check of the interface.
+// Gradle wrapper fetches everything else). Node.js (apt install nodejs npm) is optional: with it, the
+// shared interface is checked first.
 // The Android SDK once, as the Jenkins user (the command line tools from developer.android.com):
 //
 //   mkdir -p ~/android-sdk/cmdline-tools && cd ~/android-sdk/cmdline-tools
@@ -37,7 +38,16 @@ pipeline {
     stages {
         stage('Interface') {
             steps {
-                sh 'npm install --no-save acorn@8 && node tools/check-web.js'
+                sh '''
+                    # The check of the shared interface needs Node.js (apt install nodejs npm). Without
+                    # it the stage is skipped: GitHub Actions runs the same check on every push.
+                    if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+                        echo "Node.js not found on this agent: skipping the check of the interface."
+                        exit 0
+                    fi
+                    npm install --no-save --no-audit --no-fund acorn@8
+                    node tools/check-web.js
+                '''
             }
         }
 

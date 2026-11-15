@@ -5,7 +5,7 @@
 <h1 align="center">FreeX Mobile</h1>
 
 <p align="center">
-  <strong>The iOS and Android apps for <a href="https://github.com/FreeX-Studio/freex-media-server">FreeX Media Server</a>:
+  <strong>The iOS and Android apps for <a href="https://github.com/FreeX-Studio/Freex-Media-Server">FreeX Media Server</a>:
   iPhone, iPad and Android phones and tablets.</strong>
 </p>
 
@@ -41,7 +41,7 @@ Whatever the device cannot decode, the server converts on the fly, as for FreeX 
 ## Requirements
 
 - **FreeX Media Server with the app API** (CORS for apps and stream URLs with an access token, as for FreeX TV:
-  [freex-media-server#2](https://github.com/FreeX-Studio/freex-media-server/pull/2), in the release after 0.21.0).
+  [freex-media-server#2](https://github.com/FreeX-Studio/Freex-Media-Server/pull/2), in the release after 0.21.0).
 - The phone in the same network as the server, or the server reachable from the internet (HTTPS through a reverse
   proxy works too). Plain HTTP in the home network is allowed by both apps.
 

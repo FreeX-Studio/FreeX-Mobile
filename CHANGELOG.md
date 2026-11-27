@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## FreeX Mobile 1.0.3
 
 - Releases are made in GitHub with one click (Actions → Release → Run workflow, with the version number), as for
   FreeX Media Server; the release notes come from this changelog

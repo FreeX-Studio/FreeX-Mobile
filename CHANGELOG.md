@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Releases are made in GitHub with one click (Actions → Release → Run workflow, with the version number), as for
+  FreeX Media Server; the release notes come from this changelog
+- Jenkins builds the iOS app too, on a Mac agent (see the `Jenkinsfile`)
+
 ## FreeX Mobile 1.0.2
 
 - Older Android WebViews (without `clamp()` and `min()`): posters, titles, the backdrop and subtitles no longer grow

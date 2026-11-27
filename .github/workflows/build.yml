@@ -1,5 +1,11 @@
-# Builds FreeX Mobile: the Android APK and the iOS app (unsigned, for your own signing). On a tag v*,
-# both are attached to a GitHub release.
+# Copyright (c) 2026 MirraNET, Niklas Linz. Licensed under the GNU LGPLv3.
+#
+# Build of FreeX Mobile: the check of the shared interface, the Android APK and the iOS app (unsigned,
+# for your own signing). A tag v* (made by the Release workflow) publishes both as a GitHub release,
+# with this version's section of the changelog as its notes.
+#
+# Secrets (optional): FREEX_KEYSTORE_BASE64, FREEX_KEYSTORE_PASSWORD, FREEX_KEY_ALIAS and
+# FREEX_KEY_PASSWORD sign the APK with a release key; without them the debug key signs.
 name: Build
 
 on:
@@ -10,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   web:
@@ -104,14 +110,25 @@ jobs:
 
   release:
     name: Release
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-24.04
     needs: [android, ios]
+    permissions:
+      contents: write
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           path: dist
           merge-multiple: true
-      - uses: softprops/action-gh-release@v2
-        with:
-          files: dist/*
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          ls -l dist
+          # The release notes: this version's section of the changelog.
+          awk -v v="FreeX Mobile ${TAG#v}" '$0 == "## " v {on = 1; next} /^## / {on = 0} on' CHANGELOG.md > notes.md
+          printf '\n**Android** (7.0+): `FreeX-Android-%s.apk` · **iPhone / iPad** (iOS 15+): `FreeX-iOS-%s-unsigned.ipa`, to sign and install with Sideloadly or AltStore (see the README)\n' "${TAG#v}" "${TAG#v}" >> notes.md
+          gh release create "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --title "FreeX Mobile ${TAG#v}" \
+              --notes-file notes.md --verify-tag

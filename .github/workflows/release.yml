@@ -1,0 +1,88 @@
+# Copyright (c) 2026 MirraNET, Niklas Linz. Licensed under the GNU LGPLv3.
+#
+# One click in GitHub (Actions > Release > Run workflow): sets the version in web/version.json and
+# web/js/version.js (both apps take it from there), turns the "Unreleased" section of the changelog
+# into this version's, commits and tags it, then starts the Build workflow for the tag, which
+# builds the Android APK and the iOS app and publishes them as a GitHub release.
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version X.Y.Z (empty: current version if not released yet, else next patch version)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency: release
+
+jobs:
+  tag:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Choose version
+        id: version
+        env:
+          INPUT: ${{ inputs.version }}
+        run: |
+          current="$(python3 -c 'import json; print(json.load(open("web/version.json"))["version"])')"
+          version="${INPUT#v}"
+          if [ -z "$version" ]; then
+            # the current version is taken when it was never released (and the changelog has no section for it yet)
+            if git rev-parse -q --verify "refs/tags/v$current" >/dev/null || grep -q "^## FreeX Mobile $current\$" CHANGELOG.md; then
+              IFS=. read -r major minor patch <<<"$current"
+              version="$major.$minor.$((patch + 1))"
+            else
+              version="$current"
+            fi
+          fi
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::Version must be X.Y.Z, got '$version'"; exit 1; }
+          if git rev-parse -q --verify "refs/tags/v$version" >/dev/null; then echo "::error::v$version already exists"; exit 1; fi
+          if grep -q '^## Unreleased$' CHANGELOG.md && grep -q "^## FreeX Mobile $version\$" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md already has a section for $version: choose a newer version"; exit 1
+          fi
+          # The Android version code is MAJOR * 10000 + MINOR * 100 + PATCH: minor and patch stay below 100.
+          IFS=. read -r major minor patch <<<"$version"
+          if [ "$minor" -gt 99 ] || [ "$patch" -gt 99 ]; then echo "::error::Minor and patch must be at most 99 (Android version code)"; exit 1; fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+      - name: Set version, commit and tag
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          CURRENT: ${{ steps.version.outputs.current }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$VERSION" != "$CURRENT" ]; then
+            printf '{"version": "%s"}\n' "$VERSION" > web/version.json
+            sed -i "s/FREEX_VERSION = \"$CURRENT\"/FREEX_VERSION = \"$VERSION\"/" web/js/version.js
+            grep -q "FREEX_VERSION = \"$VERSION\"" web/js/version.js || { echo "::error::web/js/version.js not updated"; exit 1; }
+          fi
+          # The changes collected under "Unreleased" become this version's section.
+          if grep -q '^## Unreleased$' CHANGELOG.md; then
+            sed -i "0,/^## Unreleased\$/s//## FreeX Mobile $VERSION/" CHANGELOG.md
+          elif ! grep -q "^## FreeX Mobile $VERSION\$" CHANGELOG.md; then
+            echo "::warning::CHANGELOG.md has no \"## Unreleased\" section: the release notes will be empty"
+          fi
+          git diff --stat
+          git diff --quiet || git commit -am "Version $VERSION"
+          git tag -a "v$VERSION" -m "FreeX Mobile $VERSION"
+          git push origin HEAD:main "v$VERSION"
+      - name: Build and publish
+        # Tags pushed with the workflow token don't start workflows, so the build is started
+        # explicitly for the tag.
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh workflow run build.yml --ref "v$VERSION"
+          echo "### FreeX Mobile $VERSION" >> "$GITHUB_STEP_SUMMARY"
+          echo "Tagged v$VERSION; the *Build* workflow builds the APK and the iOS app and publishes the release." >> "$GITHUB_STEP_SUMMARY"

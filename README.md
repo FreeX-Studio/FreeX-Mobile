@@ -103,7 +103,6 @@ network cannot be reached.
 | Check | `npm install --no-save acorn@8 && node tools/check-web.js`: syntax (ES2018), version and German texts. |
 | CI | GitHub Actions (`.github/workflows/build.yml`) checks the interface and builds both apps on every push. |
 | Release | In GitHub: *Actions → Release → Run workflow*, with the version (empty: the next patch version). It sets the version in `web/version.json` and `web/js/version.js`, turns the *Unreleased* section of `CHANGELOG.md` into the version's, commits and tags `vX.Y.Z` and starts the build, which publishes the release with the APK, the unsigned IPA and the changelog section as notes. |
-| Jenkins | The `Jenkinsfile` builds the APK on a Linux agent and, side by side, the iOS app on a Mac agent (label `Spark` by default, see the comments at its top; with `FREEX_IOS_TEAM` also a signed development IPA). |
 
 The interface can be developed in any browser: serve `web/` (e.g. `python3 -m http.server -d web 8088`), open it
 with the phone view of the developer tools and connect to a server. It then plays with `<video>` and hls.js.
